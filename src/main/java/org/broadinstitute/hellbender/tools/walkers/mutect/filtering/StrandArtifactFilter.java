@@ -77,7 +77,7 @@ public class StrandArtifactFilter extends Mutect2VariantFilter {
                 .filter(eStep -> eStep.getArtifactProbability() > 0.1).collect(Collectors.toList());
         final double totalArtifacts = potentialArtifacts.stream().mapToDouble(EStep::getArtifactProbability).sum();
         final double totalNonArtifacts = eSteps.stream().mapToDouble(e -> 1 - e.getArtifactProbability()).sum();
-        strandArtifactPrior = (totalArtifacts + ARTIFACT_PSEUDOCOUNT) / (totalNonArtifacts + NON_ARTIFACT_PSEUDOCOUNT);
+        strandArtifactPrior = (totalArtifacts + ARTIFACT_PSEUDOCOUNT) / (totalArtifacts + ARTIFACT_PSEUDOCOUNT + totalNonArtifacts + NON_ARTIFACT_PSEUDOCOUNT);
 
 
         final double artifactAltCount = potentialArtifacts.stream()
